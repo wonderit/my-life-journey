@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Journey - 김원석</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css">
+    <style>
+        :root { --r-main-font-size: 28px; }
+        .slides section h2 { color: #42affa; margin-bottom: 20px; font-size: 1.4em; }
+        .highlight { color: #ffea00; font-weight: bold; }
+        .small { font-size: 0.55em; color: #ccc; line-height: 1.5; }
+        .purpose-box { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; border-left: 8px solid #42affa; margin-bottom: 20px; }
+        
+        img { border-radius: 8px; border: 1px solid #555; margin: 5px 0 !important; object-fit: contain !important; background-color: rgba(255,255,255,0.03); }
+        .flex-container { display: flex; gap: 15px; align-items: center; justify-content: center; }
+        
+        /* 커리어 타임라인 */
+        .timeline-container { display: flex; gap: 20px; text-align: left; }
+        .timeline-column { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+        .timeline-item { background: rgba(255,255,255,0.07); padding: 10px 15px; border-radius: 6px; font-size: 0.45em; border-left: 3px solid #42affa; }
+        
+        /* 💡 운명적 만남 다이어그램 CSS */
+        .dot-map { position: relative; display: flex; justify-content: space-around; align-items: center; margin: 40px 0; padding: 20px; }
+        .dot { background: #222; border: 2px solid #42affa; border-radius: 50%; width: 120px; height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 0.4em; text-align: center; position: relative; z-index: 2; box-shadow: 0 0 15px rgba(66, 175, 250, 0.3); }
+        .dot.active { border-color: #ffea00; box-shadow: 0 0 20px rgba(255, 234, 0, 0.4); }
+        .line { position: absolute; height: 2px; background: #444; top: 50%; left: 10%; right: 10%; z-index: 1; }
+        .dot-label { margin-top: 10px; font-weight: bold; color: #fff; }
+        .dot-sub { font-size: 0.8em; color: #888; margin-top: 5px; }
+
+        .qr-code { border: none !important; border-radius: 0 !important; max-height: 200px !important; background: white; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <section data-background-gradient="linear-gradient(to bottom, #000, #1a1a1a)">
+                <h3 style="font-size: 1.1em; color: #42affa; margin-bottom: 10px;">불확실성을 코딩하는 법</h3>
+                <h4 style="font-size: 0.9em; color: #eee; letter-spacing: 2px; margin-bottom: 20px;">Connecting the Dots</h4>
+                <hr style="width: 50%; border-color: #444;">
+                <p class="small" style="margin-top: 20px;">AI 연구자에서 조직 빌더까지, 정답 너머의 해답을 찾는 여정</p>
+                <div style="margin-top: 40px;">
+                    <h2 style="color: white; margin: 0;">김원석</h2>
+                    <small style="color: #888;">SafeAI Co-founder | WonderX Founder</small>
+                </div>
+            </section>
+
+            <section>
+                <h2>1. Connecting the Dots (2013-2025)</h2>
+                <div class="timeline-container">
+                    <div class="timeline-column">
+                        <div class="timeline-item"><strong>2013-15</strong> Autobrain, SureM, 배민 (병특)</div>
+                        <div class="timeline-item"><strong>2016</strong> Insiders 창업학회 / <span class="highlight">PurePeople 시작</span></div>
+                        <div class="timeline-item"><strong>2017</strong> 카카오 결제개발실 엔지니어</div>
+                        <div class="timeline-item"><strong>2017-23</strong> AI 석·박사 통합과정</div>
+                    </div>
+                    <div class="timeline-column">
+                        <div class="timeline-item"><strong>Side</strong> Anothers(영양제의 화해), Pawdly(펫커머스 플랫폼) 초기 팀 CTO 참여</div>
+                        <div class="timeline-item"><strong>2021-22</strong> 삼성 / 디사일로 (Privacy ML)</div>
+                        <div class="timeline-item"><strong>2022</strong> 앙트러리얼리티 (Web 메타버스) 연구소장</div>
+                        <div class="timeline-item"><strong>2023-현재</strong> <span class="highlight">SafeAI 공동창업</span> / WonderX 설립</div>
+                    </div>
+                </div>
+                <p class="small" style="margin-top: 15px;">지난 10년, <strong>PurePeople(프리랜서)</strong>이라는 축이 모든 도전과 이직을 연결했습니다.</p>
+            </section>
+
+            <section>
+                <h2>2. 크롤링 외주가 가져온 운명</h2>
+                <p class="small">"커리어의 작은 점들이 모여 공동창업이 되기까지"</p>
+                
+                <div class="dot-map">
+                    <div class="line"></div>
+                    <div class="dot">
+                        <div class="dot-label">PurePeople</div>
+                        <div class="dot-sub">크롤링 외주</div>
+                    </div>
+                    <div class="dot">
+                        <div class="dot-label">클라이언트</div>
+                        <div class="dot-sub">인생 멘토 소개</div>
+                    </div>
+                    <div class="dot">
+                        <div class="dot-label">인연 확인</div>
+                        <div class="dot-sub">고교 선배님</div>
+                    </div>
+                    <div class="dot active">
+                        <div class="dot-label">2023 재회</div>
+                        <div class="dot-sub">SafeAI 제안</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; text-align: left; padding: 0 50px;">
+                    <p class="small">외주 프로젝트로 만난 인연이 멘토링으로, 다시 고교 선배라는 연결고리로 이어졌습니다.</p>
+                    <p class="small">창업과 VC 사이에서 고민하던 시기, 선배님의 <span class="highlight">"같이 창업하자"</span>는 제안은 거절할 수 없는 운명이었습니다.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>3. 10년 뒤의 기술: 암호화된 ML</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <img src="img/privacy_ml_example.png" alt="Millionaire Problem" style="width: 100%; max-height: 250px !important;" onerror="this.src='https://via.placeholder.com/400x250?text=Bezos+vs+Musk+SMPC'">
+                        <p class="small" style="font-size: 0.45em; margin-top: 15px;">
+                            <span class="highlight">Yao's Millionaires' Problem:</span><br>
+                            서로의 재산은 모른 채, 누가 더 많은지만 계산하는 암호학적 기법
+                        </p>
+                    </div>
+                    <div class="tech-card" style="text-align: left;">
+                        <span class="info-label">RESEARCH JOURNEY</span>
+                        <p class="small" style="margin: 0; font-size: 0.5em;">
+                            • <strong>MIT:</strong> Privacy Preserving ML 연구<br>
+                            • <strong>Samsung DIT:</strong> 클라우드 보안 연산<br>
+                            • <strong>Desilo:</strong> 동형암호 기반 ML 솔루션
+                        </p>
+                        
+                        <div class="quote-box">
+                            <p class="small" style="margin: 0; color: #ffea00; font-weight: bold;">MY PIVOT</p>
+                            <p class="small" style="margin-top: 5px;">
+                                "10년 뒤의 논문보다,<br>
+                                <span class="highlight">지금 당장 대중에게 닿는 비즈니스</span>를 선택했습니다."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>4. 실전 비즈니스 코딩: SafeAI</h2>
+                <div class="flex-container">
+                    <img src="img/presenting.png" alt="발표 모습" style="max-height: 350px !important;">
+                    <div style="flex: 1.5;">
+                        <div class="solution-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <img src="img/face.png" alt="얼굴인식" style="max-height: 150px !important; width: 100%;">
+                            <img src="img/stock.png" alt="결품탐지" style="max-height: 150px !important; width: 100%;">
+                        </div>
+                        <p class="small" style="text-align: left; margin-top: 10px;">
+                            Vision AI로 현장의 문제를 해결하고 글로벌로 나아가는 과정. 
+                            <span class="highlight">불확실성을 설계</span>하는 즐거움입니다.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>5. [Why] 인생의 목적지</h2>
+                <div class="purpose-box">
+                    <p style="font-size: 0.8em;"><strong>"사람들이 연결되어 즐거움을 느끼는 <br><span class="highlight">최적의 환경(Environment)</span>을 설계하는 사람"</strong></p>
+                </div>
+                <div class="flex-container">
+                    <img src="img/airbnb1.png" alt="에어비앤비" style="max-height: 200px !important;">
+                    <img src="img/trevi.png" alt="트레비" style="max-height: 200px !important;">
+                </div>
+                <p class="small" style="margin-top: 10px;">3년의 슈퍼호스트, 논알콜 모임장... <br>이 경험들은 이제 <strong>WonderX(B2C)</strong>라는 이름으로 이어집니다.</p>
+            </section>
+
+            <section>
+                <h2>6. 27일, 여러분과 나누고 싶은 것</h2>
+                <div class="meet-box">
+                    <h4 style="font-size: 0.8em; margin: 0; color: #ffea00;">🤝 Builder & Connector</h4>
+                    <ul class="small" style="margin-top: 15px;">
+                        <li>자신만의 <span class="highlight">'PurePeople'</span>을 지켜나가고 있는 분</li>
+                        <li>점들을 연결해 <span class="highlight">'새로운 판'</span>을 짜고 싶은 분</li>
+                        <li>커뮤니티와 사람의 연결에 진심인 분</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h3>감사합니다</h3>
+                <div style="margin-top: 20px;">
+                    <img src="img/insta_qr.png" alt="QR" class="qr-code">
+                </div>
+                <div style="margin-top: 10px;">
+                    <h2 style="color: white; margin-bottom: 5px;">김원석</h2>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            transition: 'slide',
+            center: true
+        });
+    </script>
+</body>
+</html>
