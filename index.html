@@ -10,49 +10,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css">
     <style>
         :root { 
-            --term-bg: #050505;
-            --term-blue: #42affa;
-            --term-green: #00ff41;
-            --term-purple: #c586c0;
+            --bg-color: #000;
+            --text-color: #fff;
+            --dim-text: #888;
+            --point-color: #42affa;
             --r-main-font: "Pretendard", sans-serif;
             --mono-font: "JetBrains Mono", monospace;
         }
         
-        body, .reveal { font-family: var(--r-main-font); background-color: var(--term-bg); color: #fff; }
-        .mono { font-family: var(--mono-font); }
+        body, .reveal { font-family: var(--r-main-font); background-color: var(--bg-color); color: var(--text-color); }
+        .mono { font-family: var(--mono-font); color: var(--dim-text); }
 
-        .terminal-shell {
-            background: #000;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-            text-align: left;
-            width: 90%;
-            margin: 0 auto;
-        }
-        .window-controls { margin-bottom: 20px; font-size: 0.8em; }
-        .status-bar { color: var(--term-blue); font-family: var(--mono-font); font-size: 0.55em; margin-bottom: 20px; opacity: 0.7; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        h2 { font-size: 1.1em !important; font-weight: 400 !important; border-bottom: 1px solid #222; padding-bottom: 15px; margin-bottom: 40px !important; text-align: left; }
+        h2::before { content: "> "; color: var(--point-color); }
 
-        .ai-response { border-left: 3px solid var(--term-blue); padding-left: 25px; margin-top: 10px; }
+        ul { list-style: none !important; margin-left: 0 !important; }
+        /* 기본 li 스타일 */
+        li { margin-bottom: 18px !important; font-size: 0.82em; text-align: left; line-height: 1.4; word-break: keep-all; }
+        
+        /* 썸네일이 포함된 li를 위한 flex 스타일 */
+        li.flex-li { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        
+        .highlight { color: var(--point-color); font-weight: 700; }
+        .dim { color: var(--dim-text); font-size: 0.6em; line-height: 1.6; text-align: left; }
 
-        .grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .info-card { background: rgba(255,255,255,0.05); padding: 18px; border-radius: 8px; border: 1px solid #222; position: relative; }
-        .info-tag { color: var(--term-purple); font-family: var(--mono-font); font-size: 0.45em; font-weight: bold; margin-bottom: 8px; display: block; }
-        .info-val { font-size: 0.8em; font-weight: 700; line-height: 1.4; }
+        .simple-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; text-align: left; align-items: start; }
+        .full-width { width: 100%; text-align: left; }
 
-        img { border-radius: 10px; border: 1px solid #333; cursor: zoom-in; transition: 0.2s; background: #000; }
-        img:hover { transform: scale(1.02); }
-        .qr-code { cursor: default !important; background: white; padding: 10px; width: 170px; }
+        img { border-radius: 4px; border: 1px solid #222; cursor: zoom-in; transition: 0.2s; background: #000; }
+        .qr-code { cursor: default !important; background: white; padding: 5px; width: 160px; border: none; }
+        /* 썸네일 이미지 스타일 */
+        .thumb-img { height: 60px; width: auto; object-fit: cover; }
 
-        .hl { color: #ffea00; font-weight: bold; }
-        .dim { color: #888; font-size: 0.45em; font-style: italic; margin-top: 5px; }
+        /* 타임라인 로그 스타일 (폰트 사이즈 축소) */
+        .log-item { display: flex; gap: 15px; margin-bottom: 12px; align-items: flex-start; }
+        .year { font-family: var(--mono-font); color: var(--point-color); font-weight: bold; width: 130px; flex-shrink: 0; font-size: 0.75em; } /* 폰트 줄임 */
+        .desc { font-size: 0.75em; color: #eee; line-height: 1.4; }
 
-        .cursor { display: inline-block; width: 10px; height: 1.1em; background: var(--term-blue); animation: blink 1s infinite; vertical-align: middle; margin-left: 5px; }
+        .cursor { display: inline-block; width: 8px; height: 1em; background: var(--point-color); animation: blink 1s infinite; vertical-align: middle; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        #lightbox-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); flex-direction: column; justify-content: center; align-items: center; cursor: zoom-out; }
-        #lightbox-image { max-width: 85%; max-height: 85%; border: 2px solid var(--term-blue); cursor: default; }
+        #lightbox-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: #000; flex-direction: column; justify-content: center; align-items: center; cursor: zoom-out; }
+        #lightbox-image { max-width: 90%; max-height: 90%; border: none; cursor: default; }
     </style>
 </head>
 <body>
@@ -60,185 +59,138 @@
         <div class="slides">
 
             <section>
-                <div class="terminal-shell">
-                    <div class="window-controls">
-                        <span style="color: #ff5f56;">●</span> <span style="color: #ffbd2e;">●</span> <span style="color: #27c93f;">●</span>
+                <div class="full-width">
+                    <p class="mono" style="font-size: 0.5em; margin-bottom: 10px;">WONSUK PERSONAL_OS [Version 12.27]</p>
+                    <h1 style="font-size: 1.5em; text-align: left; margin: 0; font-weight: 800; letter-spacing: -2px;">
+                        불확실성을 코딩하는 법<span class="cursor"></span>
+                    </h1>
+                    <p class="mono" style="font-size: 0.6em; margin-top: 20px;"># Connecting the Dots: Developer to Builder</p>
+                    <div style="margin-top: 80px; text-align: right;">
+                        <p style="font-size: 1.1em; margin: 0; font-weight: 700;">김원석</p>
+                        <p class="mono" style="font-size: 0.45em; margin-top: 5px;">SafeAI Co-founder | WonderX Founder</p>
                     </div>
-                    <!-- <div class="status-bar">> INITIALIZING PERSONAL_OS_V2.5... SUCCESS.</div> -->
-                    <h1 style="font-size: 1.3em; margin: 10px 0; color: #fff;">불확실성을 코딩하는 법<span class="cursor"></span></h1>
-                    <p class="mono" style="color: var(--term-green); font-size: 0.6em; margin-bottom: 30px;"># Connecting the Dots</p>
-                    
-                    <div class="ai-response" style="border-color: #333;">
-                        <p style="font-size: 0.75em; color: #ddd; line-height: 1.7;">
-                            <span class="hl">개발자</span>에서 <span style="color: var(--term-blue); font-weight: bold;">조직 빌더</span>까지,<br>
-                            논리적 정답 너머의 <span class="hl">비즈니스 해답</span>을 찾는 여정
+                </div>
+            </section>
+
+            <section>
+                <h2>whoami --current-role</h2>
+                <div class="simple-grid">
+                    <div>
+                        <ul>
+                            <li><span class="highlight">B2B :</span> Vision AI 기반 산업 안전 솔루션</li>
+                            <li><span class="highlight">B2C :</span> 즐거운 연결을 위한 커뮤니티 기획</li>
+                        </ul>
+                        <p class="dim" style="margin-top: 30px;">
+                            정해진 답을 내는 '코드'의 세계를 지나,<br>
+                            변수 가득한 '비즈니스'와 '관계'를 코딩 중입니다.
                         </p>
                     </div>
-                    
-                    <div style="margin-top: 50px;">
-                        <h2 style="border:none; color:white; font-size: 1.6em; margin:0; padding:0;">김원석</h2>
-                        <p class="mono" style="font-size: 0.45em; color: #888; margin-top: 10px;">SafeAI Co-founder | WonderX Founder</p>
+                    <div style="text-align: center;">
+                        <img src="img/presenting.jpg" style="height: 300px;" onerror="this.src='https://via.placeholder.com/300x400?text=Builder'">
                     </div>
                 </div>
             </section>
 
             <section>
-                <div class="terminal-shell">
-                    <div class="status-bar">> [ANALYSIS] CAREER_JOURNEY_LOG</div>
-                    <div class="ai-response">
-                        <div class="grid-layout">
-                            <div class="info-card">
-                                <span class="info-tag"># BUILD_PHASE</span>
-                                <div class="info-val">2013-15 SI, 배달의민족 (병특)</div>
-                                <div class="info-val" style="margin-top:8px;">2016 창업학회 Insiders / PurePeople 시작</div>
+                <h2>why --interest "human_complexity"</h2>
+                <div class="full-width">
+                    <ul>
+                        <li><span class="highlight">01. 기술보다 사람 :</span> 바이브 코딩 시대, 기술의 깊이보다<br>기술이 누구의 삶에 닿는지가 더 중요해졌습니다.</li>
+                        <li><span class="highlight">02. 복잡함의 희열 :</span> 1+1=2인 논리 회로보다,<br>수만 가지 변수의 인간관계와 조직 설계가 즐겁습니다.</li>
+                        <li class="flex-li">
+                            <div>
+                                <span class="highlight">03. 연결의 에너지 :</span><br>
+                                에어비앤비, 트레비 운영으로 확인한<br>낯선 이들의 폭발적인 연결 에너지.
                             </div>
-                            <div class="info-card">
-                                <span class="info-tag"># TECH_DEEP_DIVE</span>
-                                <div class="info-val">2017 카카오 엔지니어</div>
-                                <div class="info-val">2023 AI 박사 졸업</div>
-                                <div class="info-val" style="margin-top:8px;">Samsung, Desilo, MIT</div>
+                            <div style="display: flex; gap: 10px;">
+                                <img src="img/airbnb1.png" class="thumb-img" onerror="this.src='https://via.placeholder.com/60x60?text=A'">
+                                <img src="img/trevi.png" class="thumb-img" onerror="this.src='https://via.placeholder.com/60x60?text=T'">
                             </div>
-                            <div class="info-card">
-                                <span class="info-tag"># LEADERSHIP</span>
-                                <div class="info-val">영양제 분석 / 펫 커머스 플랫폼 초기 CTO</div>
-                                <div class="info-val" style="margin-top:8px;">Web3 메타버스 스타트업 리서치 리드</div>
-                            </div>
-                            <div class="info-card">
-                                <span class="info-tag"># CURRENT</span>
-                                <div class="info-val hl">SafeAI Co-founder & CTO</div>
-                                <div class="info-val hl" style="margin-top:8px;">WonderX Founder</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        
-
-            <section>
-                <div class="terminal-shell">
-                    <div class="status-bar">> [NETWORKING] CONNECTION_INTELLIGENCE_MAP</div>
-                    <div class="ai-response">
-                        <h2 style="border:none; color:var(--term-blue); font-size: 1em; margin-bottom: 25px;">우연한 만남이 비즈니스의 강력한 동력이 됩니다</h2>
-                        <div class="grid-layout">
-                            <div class="info-card">
-                                <span class="info-tag">// 룩셈부르크 대사관 세미나</span>
-                                <div class="info-val">하드웨어 업체 <span class="hl">FocusAI</span> 만남<br>➔ 현재의 핵심 파트너사로 협력</div>
-                            </div>
-                            <div class="info-card">
-                                <span class="info-tag">// 박사과정 시절 미팅</span>
-                                <div class="info-val">4:4 미팅 인연<br>➔ 현재 <span class="hl">파트너사</span>로 만나 협력</div>
-                            </div>
-                            <div class="info-card">
-                                <span class="info-tag">// 2013 첫 사회생활 동기</span>
-                                <div class="info-val">10년 뒤 <span class="hl">비즈니스 파트너</span>로 재회</div>
-                            </div>
-                            <div class="info-card">
-                                <span class="info-tag">// 박사과정 인연</span>
-                                <div class="info-val">지도교수님 & 선후배와 <span class="hl">공동 과제</span></div>
-                            </div>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
                 </div>
             </section>
 
             <section>
-                <div class="terminal-shell">
-                    <div class="status-bar">> [RESEARCH] PRIVACY_PRESERVING_AI</div>
-                    <div class="ai-response">
-                        <div style="display: flex; gap: 30px;">
-                            <div style="flex: 1.2;">
-                                <img src="img/privacy_ml_example.png" style="width: 100%; border: none;" onerror="this.src='https://via.placeholder.com/400x250?text=PPML+Concept'">
-                                <p class="dim">"데이터를 공개하지 않고 안전하게 연산합니다"</p>
-                            </div>
-                            <div style="flex: 1; display: flex; flex-direction: column; gap: 15px;">
-                                <img src="img/mit.png" style="width: 100%;" onerror="this.src='https://via.placeholder.com/400x150?text=MIT+Photo'">
-                                <div class="info-card" style="flex-grow: 1; padding: 15px;">
-                                    <p style="font-size: 0.65em; line-height: 1.6;">
-                                        논문 속 미래보다 <span class="hl">지금 당장 대중의 일상에 닿는 비즈니스</span>를 선택
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                <h2>cat career_dots.log</h2>
+                <div class="full-width">
+                    <div class="log-item">
+                        <div class="year">2013-2015</div>
+                        <div class="desc">Autobrain / 배민 (병특)</div>
                     </div>
+                    <div class="log-item">
+                        <div class="year">2016-2017</div>
+                        <div class="desc">Insiders / <span class="highlight">PurePeople 시작</span> / 카카오 엔지니어</div>
+                    </div>
+                    <div class="log-item">
+                        <div class="year">2017-2023</div>
+                        <div class="desc">AI 석박사 통합 수료 / 다수 스타트업 CTO 참여</div>
+                    </div>
+                    <div class="log-item">
+                        <div class="year">2021-2022</div>
+                        <div class="desc">삼성 / 디사일로 / Web3 스타트업 리서치 리드</div>
+                    </div>
+                    <div class="log-item" style="border-top: 1px solid #222; padding-top: 10px;">
+                        <div class="year">2023-NOW</div>
+                        <div class="desc"><span class="highlight">SafeAI 공동창업</span> / WonderX 법인 설립</div>
+                    </div>
+                </div>
+                <p class="dim" style="margin-top: 30px;">// 12년의 점들이 '연결'이라는 가치로 수렴되고 있습니다.</p>
+            </section>
+
+            <section>
+                <h2>ls -al /networks/synergy</h2>
+                <div class="full-width">
+                    <div style="margin-bottom: 30px;">
+                        <p style="font-size: 0.85em; margin-bottom: 12px;"><span class="highlight"># 룩셈 대사관 인연 :</span> 우연히 만난 파트너 Focus AI</p>
+                        <p style="font-size: 0.85em; margin-bottom: 12px;"><span class="highlight"># 2013 첫 동기 :</span> 10년 뒤 비즈니스 파트너로 재회</p>
+                        <p style="font-size: 0.85em; margin-bottom: 12px;"><span class="highlight"># 박사과정 파트너 :</span> 당시 미팅 인연이 현 협력사로</p>
+                        <p style="font-size: 0.85em; margin-bottom: 12px;"><span class="highlight"># 학계의 동료들 :</span> 교수 선후배와 공동 논문 및 연구</p>
+                    </div>
+                    <p class="dim">// 소중한 인연의 점들이 다시 만나 거대한 선이 되었습니다.</p>
                 </div>
             </section>
 
             <section>
-                <div class="terminal-shell">
-                    <div class="status-bar">> [PROJECT] SAFEAI_DEPLOYMENT_STATUS</div>
-                    <div class="ai-response">
-                        <div style="display: flex; gap: 20px;">
-                            <div style="flex: 1; text-align: center;">
-                                <img src="img/presenting.jpg" style="height: 300px;" onerror="this.src='https://via.placeholder.com/300x350?text=Presenting'">
-                                <p class="dim">SafeAI 조직 빌딩 및 문화 설계</p>
-                            </div>
-                            <div style="flex: 1; text-align: center;">
-                                <img src="img/oos.png" style="height: 300px;" onerror="this.src='https://via.placeholder.com/400x300?text=Stock+AI'">
-                                <p class="dim">실시간 결품탐지 솔루션 구축</p>
-                            </div>
-                        </div>
-                        <p style="font-size: 0.75em; margin-top: 25px; line-height: 1.6;">
-                            기술 구현을 넘어 <span class="hl">비즈니스 전체를 설계</span>하는 즐거움을 누립니다.<br>
-                            산업 현장의 문제를 AI로 해결하며 글로벌로 확장 중입니다.
+                <h2>view ~/life/purpose.yml</h2>
+                <div class="full-width">
+                    <div style="padding: 30px; border-left: 2px solid var(--point-color); background: #0a0a0a; margin-bottom: 30px;">
+                        <p style="font-size: 1.1em; font-weight: 700; margin: 0;">
+                            "사람들이 연결되어 즐거움을 느끼는 <br>
+                            <span class="highlight">최적의 환경</span>을 설계하는 사람"
                         </p>
                     </div>
-                </div>
-            </section>
-
-            <section>
-                <div class="terminal-shell">
-                    <div class="status-bar">> [VISION] LIFE_PURPOSE_ARCHITECTURE</div>
-                    <div class="ai-response">
-                        <div class="info-card" style="background: rgba(66, 175, 250, 0.1); border-color: var(--term-blue);">
-                            <p style="font-size: 0.9em; font-weight: bold; margin: 0;">
-                                "사람들이 연결되어 즐거움을 느끼는 <br><span class="hl">최적의 환경</span>을 설계하는 사람"
-                            </p>
+                    <div class="simple-grid" style="align-items: center;">
+                        <div class="dim" style="font-size: 0.55em;">
+                            에어비앤비 슈퍼호스트(3년), 트레비 운영(1년)...<br>
+                            직접 판을 짜며 얻은 전율과 <br>
+                            다양한 커뮤니티 멤버로서 얻은 인사이트가 <br>
+                            <span class="highlight">WonderX</span>를 만드는 가장 큰 자산입니다.
                         </div>
-                        <div style="display: flex; gap: 30px; margin-top: 25px;">
-                            <div style="flex: 1.2;">
-                                <div class="info-card" style="border-left: 5px solid var(--term-green); margin-bottom: 15px;">
-                                    <span class="info-tag">// LEADERSHIP: 직접 판을 짠 경험</span>
-                                    <div class="info-val">• <span class="hl">에어비앤비 슈퍼호스트 (3년)</span></div>
-                                    <div class="info-val">• <span class="hl">논알콜 커뮤니티 '트레비' (1년)</span></div>
-                                    <p style="font-size: 0.5em; color: #888; margin-top: 5px;">공간과 모임을 직접 설계하며 '연결의 기쁨' 확인</p>
-                                </div>
-                                <div class="info-card" style="opacity: 0.7;">
-                                    <span class="info-tag">// INSIGHTS: 커뮤니티 참여 경험</span>
-                                    <p style="font-size: 0.55em; color: #ccc; margin: 0;">LST, 트레바리, 넷플연가, {창}, 동행 등 참여를 통해 <span class="hl">WonderX</span>의 영감을 얻었습니다.</p>
-                                </div>
-                            </div>
-                            <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
-                                <img src="img/airbnb1.png" style="height: 140px;" onerror="this.src='https://via.placeholder.com/200x150?text=Airbnb'">
-                                <img src="img/trevi.png" style="height: 140px;" onerror="this.src='https://via.placeholder.com/200x150?text=Trevi'">
-                            </div>
+                        <div style="display: flex; gap: 10px;">
+                            <img src="img/airbnb1.png" style="height: 120px;">
+                            <img src="img/trevi.png" style="height: 120px;">
                         </div>
                     </div>
                 </div>
             </section>
 
             <section>
-                <div class="terminal-shell">
-                    <div class="status-bar">> [LISTEN] WAITING_FOR_INBOUND_CONNECTIONS</div>
-                    <div class="ai-response">
-                        <div style="background: rgba(66, 175, 250, 0.05); padding: 30px; border-radius: 12px; border: 1px dashed var(--term-blue);">
-                            <p style="font-size: 0.9em; margin-bottom: 20px; font-weight: bold; color: var(--term-blue);">27일, 이런 분들과 대화하고 싶습니다.</p>
-                            <ul style="font-size: 0.85em; line-height: 2.2; list-style: none; padding: 0;">
-                                <li>✔ 자신만의 <span class="hl">오리지널리티</span>를 지켜나가는 분</li>
-                                <li>✔ 점들을 연결해 <span class="hl">'새로운 판'</span>을 짜고 싶은 분</li>
-                                <li>✔ 사람 사이의 <span class="hl">온기</span>를 사랑하는 커넥터</li>
-                            </ul>
+                <h2>share --inspiration</h2>
+                <div class="full-width">
+                    <p style="font-size: 0.9em; margin-bottom: 20px; line-height: 1.6;">제 이야기가 여러분에게 <br>이런 의미로 남기를 바랍니다.</p>
+                    <ul style="margin-bottom: 30px;">
+                        <li>✔ <span class="highlight">삶의 방향 :</span> 우리가 각자 지키는 'Why'에 대해</li>
+                        <li>✔ <span class="highlight">점들의 만남 :</span> 우리의 오늘이 연결될 내일에 대해</li>
+                        <li>✔ <span class="highlight">연결의 설계 :</span> 함께 즐거움을 만드는 짜릿함에 대해</li>
+                    </ul>
+                    <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #222; padding-top: 25px;">
+                        <div>
+                            <p style="font-size: 1.3em; font-weight: 800; margin: 0;">김원석</p>
+                            <p class="mono" style="font-size: 0.5em; margin-top: 5px;">Your presence is my inspiration.</p>
                         </div>
-                        <p class="mono" style="font-size: 0.7em; margin-top: 30px; text-align: center; color: var(--term-blue);">Let's share our 'Why' together.</p>
+                        <img src="img/insta_qr.png" class="qr-code">
                     </div>
-                </div>
-            </section>
-
-            <section>
-                <div class="terminal-shell" style="text-align: center; padding: 50px;">
-                    <div class="mono" style="color: var(--term-blue); margin-bottom: 30px; opacity: 0.6;">> SESSION_LOGOUT --SUCCESS</div>
-                    <img src="img/insta_qr.png" class="qr-code" style="margin-bottom: 30px;">
-                    <h2 style="border:none; color:white; font-size: 2em; margin:0; font-family: var(--r-main-font);">김원석</h2>
                 </div>
             </section>
 
@@ -254,14 +206,15 @@
         Reveal.initialize({
             hash: true,
             slideNumber: 'c/t',
-            transition: 'fade',
+            transition: 'none',
             center: true,
-            width: 1100,
-            height: 800
+            width: 1000,
+            height: 700
         });
 
         const modal = document.getElementById('lightbox-modal');
         const modalImg = document.getElementById('lightbox-image');
+        // 썸네일 이미지도 클릭 대상에 포함
         const images = document.querySelectorAll('.reveal .slides section img:not(.qr-code)');
 
         images.forEach(img => {
