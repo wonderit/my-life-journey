@@ -25,10 +25,7 @@
         h2::before { content: "> "; color: var(--point-color); }
 
         ul { list-style: none !important; margin-left: 0 !important; }
-        /* 기본 li 스타일 */
         li { margin-bottom: 18px !important; font-size: 0.82em; text-align: left; line-height: 1.4; word-break: keep-all; }
-        
-        /* 썸네일이 포함된 li를 위한 flex 스타일 */
         li.flex-li { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
         
         .highlight { color: var(--point-color); font-weight: 700; }
@@ -38,20 +35,29 @@
         .full-width { width: 100%; text-align: left; }
 
         img { border-radius: 4px; border: 1px solid #222; cursor: zoom-in; transition: 0.2s; background: #000; }
-        .qr-code { cursor: default !important; background: white; padding: 5px; width: 160px; border: none; }
-        /* 썸네일 이미지 스타일 */
         .thumb-img { height: 60px; width: auto; object-fit: cover; }
 
-        /* 타임라인 로그 스타일 (폰트 사이즈 축소) */
-        .log-item { display: flex; gap: 15px; margin-bottom: 12px; align-items: flex-start; }
-        .year { font-family: var(--mono-font); color: var(--point-color); font-weight: bold; width: 130px; flex-shrink: 0; font-size: 0.75em; } /* 폰트 줄임 */
-        .desc { font-size: 0.75em; color: #eee; line-height: 1.4; }
+        /* 💡 타임라인 로그 스타일: 연도와 내용 사이 간격 확보 */
+        .log-item { display: flex; gap: 40px; margin-bottom: 15px; align-items: flex-start; } /* gap을 10px에서 40px로 확대 */
+        .year { font-family: var(--mono-font); color: var(--point-color); font-weight: bold; width: 120px; flex-shrink: 0; font-size: 0.75em; white-space: nowrap; border-right: 1px solid #333; } /* 우측 보더 추가로 구분감 확보 */
+        .desc { font-size: 0.75em; color: #eee; line-height: 1.4; word-break: keep-all; }
 
         .cursor { display: inline-block; width: 8px; height: 1em; background: var(--point-color); animation: blink 1s infinite; vertical-align: middle; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
         #lightbox-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: #000; flex-direction: column; justify-content: center; align-items: center; cursor: zoom-out; }
         #lightbox-image { max-width: 90%; max-height: 90%; border: none; cursor: default; }
+
+        @media print {
+            .reveal .slides section {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                height: 100vh !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -95,12 +101,11 @@
                 <h2>why --interest "human_complexity"</h2>
                 <div class="full-width">
                     <ul>
-                        <li><span class="highlight">01. 기술보다 사람 :</span> 바이브 코딩 시대, 기술의 깊이보다<br>기술이 누구의 삶에 닿는지가 더 중요해졌습니다.</li>
-                        <li><span class="highlight">02. 복잡함의 희열 :</span> 1+1=2인 논리 회로보다,<br>수만 가지 변수의 인간관계와 조직 설계가 즐겁습니다.</li>
+                        <li><span class="highlight">01. 기술보다 사람 :</span> 기술의 깊이보다 '누구의 삶에 닿는지'가 핵심</li>
+                        <li><span class="highlight">02. 복잡함의 희열 :</span> 정해진 논리보다 변수 가득한 인간관계와 조직 설계 지향</li>
                         <li class="flex-li">
                             <div>
-                                <span class="highlight">03. 연결의 에너지 :</span><br>
-                                에어비앤비, 트레비 운영으로 확인한<br>낯선 이들의 폭발적인 연결 에너지.
+                                <span class="highlight">03. 연결의 에너지 :</span> 에어비앤비·트레비 운영으로 확인한<br>폭발적인 연결의 힘
                             </div>
                             <div style="display: flex; gap: 10px;">
                                 <img src="img/airbnb1.png" class="thumb-img" onerror="this.src='https://via.placeholder.com/60x60?text=A'">
@@ -115,36 +120,36 @@
                 <h2>cat career_dots.log</h2>
                 <div class="full-width">
                     <div class="log-item">
-                        <div class="year">2013-2015</div>
-                        <div class="desc">Autobrain / 배민 (병특)</div>
+                        <div class="year">'13-'15</div>
+                        <div class="desc">SI / 배민 (병특)</div>
                     </div>
                     <div class="log-item">
-                        <div class="year">2016-2017</div>
-                        <div class="desc">Insiders / <span class="highlight">PurePeople 시작</span> / 카카오 엔지니어</div>
+                        <div class="year">'16-'17</div>
+                        <div class="desc">창업학회 / <span class="highlight">PurePeople 시작</span> / 카카오 엔지니어</div>
                     </div>
                     <div class="log-item">
-                        <div class="year">2017-2023</div>
-                        <div class="desc">AI 석박사 통합 수료 / 다수 스타트업 CTO 참여</div>
+                        <div class="year">'17-'23</div>
+                        <div class="desc">AI 박사 졸업 / 다수 스타트업 CTO 참여</div>
                     </div>
                     <div class="log-item">
-                        <div class="year">2021-2022</div>
-                        <div class="desc">삼성 / 디사일로 / Web3 스타트업 리서치 리드</div>
+                        <div class="year">'21-'22</div>
+                        <div class="desc">삼성 / 동형암호 / Web3 스타트업 리서치 리드</div>
                     </div>
-                    <div class="log-item" style="border-top: 1px solid #222; padding-top: 10px;">
-                        <div class="year">2023-NOW</div>
+                    <div class="log-item" style="border-top: 1px solid #222; padding-top: 15px; margin-top: 5px;">
+                        <div class="year">'23-NOW</div>
                         <div class="desc"><span class="highlight">SafeAI 공동창업</span> / WonderX 법인 설립</div>
                     </div>
                 </div>
-                <p class="dim" style="margin-top: 30px;">// 12년의 점들이 '연결'이라는 가치로 수렴되고 있습니다.</p>
+                <p class="dim" style="margin-top: 35px;">// 12년의 점들이 '연결'이라는 가치로 수렴되고 있습니다.</p>
             </section>
 
             <section>
                 <h2>ls -al /networks/synergy</h2>
                 <div class="full-width">
                     <div style="margin-bottom: 30px;">
-                        <p style="font-size: 0.85em; margin-bottom: 12px;"><span class="highlight"># 룩셈 대사관 인연 :</span> 우연히 만난 파트너 Focus AI</p>
-                        <p style="font-size: 0.85em; margin-bottom: 12px;"><span class="highlight"># 2013 첫 동기 :</span> 10년 뒤 비즈니스 파트너로 재회</p>
-                        <p style="font-size: 0.85em; margin-bottom: 12px;"><span class="highlight"># 박사과정 파트너 :</span> 당시 미팅 인연이 현 협력사로</p>
+                        <p style="font-size: 0.85em; margin-bottom: 12px;"><span class="highlight"># 룩셈 대사관 인연 :</span> 우연히 만난 파트너 FocusAI</p>
+                        <p style="font-size: 0.85em; margin-bottom: 12px;"><span class="highlight"># '13 첫 동기 :</span> 10년 뒤 비즈니스 파트너로 재회</p>
+                        <p style="font-size: 0.85em; margin-bottom: 12px;"><span class="highlight"># 대학원 동료 :</span> 당시 미팅 인연이 현 협력사로</p>
                         <p style="font-size: 0.85em; margin-bottom: 12px;"><span class="highlight"># 학계의 동료들 :</span> 교수 선후배와 공동 논문 및 연구</p>
                     </div>
                     <p class="dim">// 소중한 인연의 점들이 다시 만나 거대한 선이 되었습니다.</p>
@@ -163,33 +168,31 @@
                     <div class="simple-grid" style="align-items: center;">
                         <div class="dim" style="font-size: 0.55em;">
                             에어비앤비 슈퍼호스트(3년), 트레비 운영(1년)...<br>
-                            직접 판을 짜며 얻은 전율과 <br>
-                            다양한 커뮤니티 멤버로서 얻은 인사이트가 <br>
-                            <span class="highlight">WonderX</span>를 만드는 가장 큰 자산입니다.
+                            직접 판을 짜며 얻은 전율과 커뮤니티 활동의<br>
+                            인사이트가 <span class="highlight">WonderX</span>의 기획 원천이 되었습니다.
                         </div>
                         <div style="display: flex; gap: 10px;">
-                            <img src="img/airbnb1.png" style="height: 120px;">
-                            <img src="img/trevi.png" style="height: 120px;">
+                            <img src="img/airbnb1.png" class="thumb-img">
+                            <img src="img/trevi.png" class="thumb-img">
                         </div>
                     </div>
                 </div>
             </section>
 
             <section>
-                <h2>share --inspiration</h2>
+                <h2>commit --message "gratitude"</h2>
                 <div class="full-width">
-                    <p style="font-size: 0.9em; margin-bottom: 20px; line-height: 1.6;">제 이야기가 여러분에게 <br>이런 의미로 남기를 바랍니다.</p>
-                    <ul style="margin-bottom: 30px;">
-                        <li>✔ <span class="highlight">삶의 방향 :</span> 우리가 각자 지키는 'Why'에 대해</li>
-                        <li>✔ <span class="highlight">점들의 만남 :</span> 우리의 오늘이 연결될 내일에 대해</li>
-                        <li>✔ <span class="highlight">연결의 설계 :</span> 함께 즐거움을 만드는 짜릿함에 대해</li>
-                    </ul>
-                    <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #222; padding-top: 25px;">
-                        <div>
-                            <p style="font-size: 1.3em; font-weight: 800; margin: 0;">김원석</p>
-                            <p class="mono" style="font-size: 0.5em; margin-top: 5px;">Your presence is my inspiration.</p>
-                        </div>
-                        <img src="img/insta_qr.png" class="qr-code">
+                    <p style="font-size: 0.9em; margin-bottom: 40px; line-height: 1.6;">
+                        나를 넘어 우리로 연결될 때,<br>
+                        비로소 <span class="highlight">비즈니스의 진짜 가치</span>가 시작됩니다.
+                    </p>
+                    
+                    <div style="margin-top: 80px; text-align: right; border-top: 1px solid #222; padding-top: 30px;">
+                        <p class="mono" style="font-size: 0.55em; margin-bottom: 10px; opacity: 0.6;">Lab Motto: "Your success is my success."</p>
+                        <p class="mono" style="font-size: 0.9em; color: var(--point-color); font-weight: bold; letter-spacing: -0.5px;">
+                            "Beyond logic, through connection."
+                        </p>
+                        <p style="font-size: 1.2em; font-weight: 800; margin-top: 20px;">김원석</p>
                     </div>
                 </div>
             </section>
@@ -214,7 +217,6 @@
 
         const modal = document.getElementById('lightbox-modal');
         const modalImg = document.getElementById('lightbox-image');
-        // 썸네일 이미지도 클릭 대상에 포함
         const images = document.querySelectorAll('.reveal .slides section img:not(.qr-code)');
 
         images.forEach(img => {
